@@ -37,7 +37,7 @@
                 <ul class="nav navbar-nav">
                     <li class = "themeList">
                         <a href="#">테마별 코디</a>
-	                     <ul>
+	                     <ul class="dropdown-menu" style="opacity:0.9;">
 							<li><a href="#">남자</a></li>
 							<li><a href="#">여자</a></li>
 						</ul>
