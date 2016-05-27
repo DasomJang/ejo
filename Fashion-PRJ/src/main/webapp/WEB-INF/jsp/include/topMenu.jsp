@@ -14,4 +14,6 @@
 </div>
 <div class="mainLnb">
 <%-- 	<a href="${pageContext.request.contextPath}/board/list.do">테마별코디?????????</a> --%>
+	<a href="${pageContext.request.contextPath}/board/detail.do?no=1">테마별코디</a>
+
 </div>
