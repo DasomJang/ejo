@@ -37,8 +37,8 @@
                     <li class = "themeList">
                         <a href="#">테마별 코디</a>
 	                     <ul class="dropdown-menu" style="opacity:0.9;">
-							<li><a href="#">남자</a></li>
-							<li><a href="${pageContext.request.contextPath}/board/detail.do?no=1">여자</a></li>
+							<li><a href="${pageContext.request.contextPath}/board/themeList.do?genderNo=1">남자</a></li>
+							<li><a href="${pageContext.request.contextPath}/board/themeList.do?genderNo=2">여자</a></li>
 						</ul>
                     </li>
                     <li>
