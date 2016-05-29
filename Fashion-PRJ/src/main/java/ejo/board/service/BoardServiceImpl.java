@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import ejo.repository.mapper.BoardMapperImpl;
 import ejo.repository.vo.BoardCommentVO;
 import ejo.repository.vo.BoardFileVO;
+import ejo.repository.vo.BoardRecomVO;
 import ejo.repository.vo.BoardVO;
+import ejo.repository.vo.ThemeVO;
+
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -28,7 +31,31 @@ public class BoardServiceImpl implements BoardService {
 		result.put("board", board);
 		return result;
 	}
+	
+	//	테마리스트
+	@Override
+	public List<ThemeVO> selectTheme(String genderNo) throws Exception {
+		return dao.selectTheme(genderNo);
+	}
 
+	//	테마별 리스트 조회
+	@Override
+	public List<BoardVO> selectThemeBoard(String themeNo) throws Exception {
+		return dao.selectThemeBoard(themeNo);
+	}
+	
+	//	테마별 리스트 파일 조회
+	@Override
+	public List<BoardFileVO> selectThemeBoardFile(String themeNo) throws Exception {
+		return dao.selectThemeBoardFile(themeNo);
+	}
+ 
+//	@Override
+//	public void registBoardRecom(BoardRecomVO boardRecom) throws Exception {
+//		dao.registBoardRecom(boardRecom);
+//	}
+	
+	
 	@Override
 	public List<BoardCommentVO> selectComment(int boardNo) throws Exception {
 		return dao.selectBoardComment(boardNo);

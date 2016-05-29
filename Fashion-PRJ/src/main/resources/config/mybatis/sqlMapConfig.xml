@@ -12,11 +12,11 @@
 <!-- 		<typeAlias alias="boardMemberRecom" type="ejo.repository.vo.BoardMemberRecomVO" /> -->
 		<typeAlias alias="board" type="ejo.repository.vo.BoardVO" />
 		<typeAlias alias="boardFile" type="ejo.repository.vo.BoardFileVO" />
-<!-- 		<typeAlias alias="boardRecom" type="ejo.repository.vo.BoardRecomVO" /> -->
+ 		<typeAlias alias="boardRecom" type="ejo.repository.vo.BoardRecomVO" />
 		<typeAlias alias="boardScore" type="ejo.repository.vo.BoardScoreVO" />
 		<typeAlias alias="boardComment" type="ejo.repository.vo.BoardCommentVO" />
 		<typeAlias alias="itemFile" type="ejo.repository.vo.ItemFileVO" />
-<!-- 		<typeAlias alias="theme" type="ejo.repository.vo.ThemeVO" /> -->
+ 		<typeAlias alias="theme" type="ejo.repository.vo.ThemeVO" /> 
 <!-- 		<typeAlias alias="dailyCoordi" type="ejo.repository.vo.DailyCoordiVO" /> -->
 		<typeAlias alias="file" type="ejo.repository.vo.DownloadVO" />
 	</typeAliases>

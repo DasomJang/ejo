@@ -18,8 +18,7 @@
 					    http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- mybatis 객체 준비 -->
-	<context:property-placeholder 
-		location="classpath:config/mybatis/db.properties"/>
+	<context:property-placeholder location="classpath:config/mybatis/db.properties"/>
 
 	<!-- DBCP 사용 -->	
 	<bean id="dataSource" 
