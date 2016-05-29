@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 자주 사용하는 클래스는 별도로 별명을 지정한 다음 사용하면 편하다.  -->
+	<typeAliases>
+		<typeAlias alias="member" type="ejo.repository.vo.MemberVO" />
+<!-- 		<typeAlias alias="boardMember" type="ejo.repository.vo.BoardMemberVO" /> -->
+<!-- 		<typeAlias alias="boardMemberFile" type="ejo.repository.vo.BoardMemberFileVO" /> -->
+<!-- 		<typeAlias alias="boardMemberRecom" type="ejo.repository.vo.BoardMemberRecomVO" /> -->
+		<typeAlias alias="board" type="ejo.repository.vo.BoardVO" />
+		<typeAlias alias="boardFile" type="ejo.repository.vo.BoardFileVO" />
+<!-- 		<typeAlias alias="boardRecom" type="ejo.repository.vo.BoardRecomVO" /> -->
+		<typeAlias alias="boardScore" type="ejo.repository.vo.BoardScoreVO" />
+		<typeAlias alias="boardComment" type="ejo.repository.vo.BoardCommentVO" />
+		<typeAlias alias="itemFile" type="ejo.repository.vo.ItemFileVO" />
+<!-- 		<typeAlias alias="theme" type="ejo.repository.vo.ThemeVO" /> -->
+<!-- 		<typeAlias alias="dailyCoordi" type="ejo.repository.vo.DailyCoordiVO" /> -->
+		<typeAlias alias="file" type="ejo.repository.vo.DownloadVO" />
+	</typeAliases>
+</configuration>
+
+
+
+
+
+
