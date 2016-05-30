@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ejo.board.service.BoardService;
 import ejo.repository.vo.BoardCommentVO;
+import ejo.repository.vo.BoardScoreVO;
 import ejo.repository.vo.MemberVO;
 
 @Controller
@@ -57,7 +58,22 @@ public class BoardController {
 		return boardService.deleteComment(comment);
 	}
 	
+	//////////////////////////평점   //////////////////////////
+	@RequestMapping("/scoreBar.json")
+	@ResponseBody
+	public Map<String, Integer> selectScoreCnt(int boardNo) throws Exception {
+		Map<String, Integer> result = boardService.selectScoreCnt(boardNo);
+		return result;
+	}
 	
+	@RequestMapping("/registScore.json")
+	@ResponseBody
+	public int registScore(HttpSession session, BoardScoreVO score) throws Exception {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		score.setId(user.getId());
+		int count = boardService.registScore(score);
+		return count;
+	}
 	
 	
 	

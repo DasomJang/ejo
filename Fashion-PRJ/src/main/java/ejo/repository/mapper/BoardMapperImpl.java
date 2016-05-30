@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import ejo.repository.vo.BoardCommentVO;
 import ejo.repository.vo.BoardFileVO;
+import ejo.repository.vo.BoardScoreVO;
 import ejo.repository.vo.BoardVO;
 
 @Repository
@@ -43,6 +44,21 @@ public class BoardMapperImpl implements BoardMapper {
 
 	public void deleteBoardComment(int commentNo) throws Exception {
 		session.delete(BOARD_MAPPER_NAMESPACE + ".deleteBoardComment", commentNo);		
+	}
+
+	
+	public int selectBoardScoreCnt(int boardNo) throws Exception {
+		return session.selectOne(BOARD_MAPPER_NAMESPACE + ".selectBoardScoreCnt", boardNo);		
+	}
+	public int selectBoardScoreGradeCnt(BoardScoreVO score) throws Exception {
+		return session.selectOne(BOARD_MAPPER_NAMESPACE + ".selectBoardScoreGradeCnt", score);
+	}	
+
+	public int selectOneBoardScore(BoardScoreVO score) throws Exception {
+		return session.selectOne(BOARD_MAPPER_NAMESPACE + ".selectOneBoardScore", score);		
+	}
+	public void insertBoardScore(BoardScoreVO score) throws Exception {
+		session.insert(BOARD_MAPPER_NAMESPACE + ".insertBoardScore", score);		
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import ejo.repository.vo.BoardCommentVO;
 import ejo.repository.vo.BoardFileVO;
+import ejo.repository.vo.BoardScoreVO;
 import ejo.repository.vo.BoardVO;
 
 public interface BoardMapper {
@@ -14,4 +15,9 @@ public interface BoardMapper {
 	public BoardCommentVO selectRegComment(int commentNo) throws Exception;
 	public void updateBoardComment(BoardCommentVO comment) throws Exception;
 	public void deleteBoardComment(int commentNo) throws Exception;
+	
+	public int selectBoardScoreCnt(int boardNo) throws Exception;
+	public int selectBoardScoreGradeCnt(BoardScoreVO score) throws Exception;
+	public int selectOneBoardScore(BoardScoreVO score) throws Exception;
+	public void insertBoardScore(BoardScoreVO score) throws Exception;
 }

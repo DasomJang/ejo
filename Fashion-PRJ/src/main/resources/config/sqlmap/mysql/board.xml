@@ -52,4 +52,33 @@
     </delete>
     
     
+    <!-- 상세: 점수 갯수 조회 -->
+    <select id="selectBoardScoreCnt" parameterType="int" resultType="int">
+    	select count(*)
+		  from t2_score
+		 where board_no = #{boardNo}
+    </select>
+    
+    <!-- 상세: 평점별 점수 갯수 조회 -->
+    <select id="selectBoardScoreGradeCnt" parameterType="boardScore" resultType="int">
+    	select count(*)
+		  from t2_score
+		 where board_no = #{boardNo}
+		   and code_value = #{codeValue}
+    </select>
+    
+    <!-- 상세: 점수 투표 중복 확인 위한 해당 id, boardNo 값에 따른 갯수 조회 -->
+    <select id="selectOneBoardScore" parameterType="boardScore" resultType="int">
+    	select count(*)
+		  from t2_score
+		 where id = #{id}
+		   and board_no = #{boardNo}
+    </select>
+    
+    <!-- 상세: 게시물 상세 점수 등록 -->
+    <insert id="insertBoardScore" parameterType="boardScore">
+    	insert into t2_score(id, board_no, code_value)
+    	values (#{id}, #{boardNo}, #{codeValue})    
+    </insert>
+    
 </mapper>

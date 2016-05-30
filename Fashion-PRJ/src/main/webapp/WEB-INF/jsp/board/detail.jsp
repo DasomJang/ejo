@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/scoreBar.css">
 <script src=https://code.jquery.com/jquery-2.2.4.min.js></script>
 </head>
 <body>
@@ -29,14 +30,46 @@
 		</div>		
 		<!-- 평점 -->
 		<div>
-			<form action="">
-				<input type="radio" name="score" value="good" checked="checked" /> GOOD
-				<input type="radio" name="score" value="soso" /> SOSO
-				<input type="radio" name="score" value="bad" /> BAD
+			<form id="srForm" name="srForm" action="registScore.json">
+				<input type="hidden" name="boardNo" value="${board.boardNo}">
+				<input type="radio" name="score" value="11" checked="checked" /> GOOD
+				<input type="radio" name="score" value="12" /> SOSO
+				<input type="radio" name="score" value="13" /> BAD
+<!-- 				<input type="submit" value="확인" /> -->
 				<button>확인</button>
 			</form>
-		</div>		
-		<br />	
+		</div>
+		<br />
+		<!-- 평점 그래프 -->
+		<div class="scoreGraph">
+			<div class="verticalChart">
+				<div class="singleBar">
+					<div class="bar">
+						<div id="goodBar" class="value">
+							<span style="color: rgb(45, 137, 239); display: inline;"></span>
+						</div>
+					</div>
+				<div class="title">Good</div>
+				</div>
+				<div class="singleBar">
+					<div class="bar">
+						<div id="sosoBar" class="value">
+							<span style="color: rgb(45, 137, 239); display: inline;"></span>
+	    				</div>
+	    			</div>
+	    			<div class="title">Soso</div>
+	    		</div>
+	    		<div class="singleBar">
+	    			<div class="bar">
+	    				<div id="badBar" class="value">
+	    					<span style="color: rgb(45, 137, 239); display: inline;"></span>
+	    				</div>
+	    			</div>
+	    			<div class="title">Bad</div>
+				</div>
+			</div>
+  		</div>	
+		<br />
 		<br />	
 		<!-- 댓글 -->
 		<!-- 댓글 등록 폼 -->
@@ -75,6 +108,7 @@
 </div>
 <script>
 	$(function() {
+		// 댓글
 		$("#cmForm").hide();
 		getCommentList();
 		$("#crForm").submit(function (e) {
@@ -85,7 +119,67 @@
 			commentMod();
 			e.preventDefault();
 		});
+		
+		// 평점
+		getScoreBar();
+		$("#srForm").submit(function (e) {			
+			scoreReg();
+			e.preventDefault();
+		});
 	});
+	
+	//////////////////////////  평점   //////////////////////////
+	function getScoreBar() {
+		$.ajax({
+			url: "scoreBar.json",
+			data: {boardNo: "${board.boardNo}"}
+		})
+		.done(scoreBar);
+	}
+	
+	function scoreBar(scoreList) {
+		var scoreCnt = scoreList["scoreCnt"];
+		var scoreGoodCnt = scoreList["scoreGoodCnt"];
+		var scoreSosoCnt = scoreList["scoreSosoCnt"];
+		var scoreBadCnt = scoreList["scoreBadCnt"];
+		
+		var perGood = Math.round((scoreGoodCnt / scoreCnt) * 100);
+		var perSoso = Math.round((scoreSosoCnt / scoreCnt) * 100);
+		var perBad = Math.round((scoreBadCnt / scoreCnt) * 100);
+		
+		$("#goodBar").css("height", perGood + "%")
+					 .children("span").html(perGood + "%");
+		$("#sosoBar").css("height", perSoso + "%")
+					 .children("span").html(perSoso + "%");
+		$("#badBar").css("height", perBad + "%")
+					 .children("span").html(perBad + "%");		
+	}
+
+	function scoreReg() {
+		var f = document.srForm;
+		$.ajax({
+			url: f.action,
+			type: "POST",
+			data: {
+				boardNo: f.boardNo.value,				
+				codeValue: f.score.value
+			}			
+		})
+		.done(function (data) {
+			if (data == -1) {
+				alert("이미 점수를 등록하셨습니다.");
+				return;
+			} else {
+				getScoreBar();
+				alert("점수 등록 성공");				
+			}
+		});
+	}
+	
+	
+	
+	
+	////////////////////////// 댓글  //////////////////////////
 	
 	function getCommentList() {
 		$.ajax({
@@ -110,8 +204,7 @@
 	function makeTr(data) {
 		var tr = $("<tr>").append($("<td>").html(data.id))
 						  .append($("<td id='" + data.commentNo + "'>").html(data.content))
-						  .append($("<td>").html(data.regDate));
-		
+						  .append($("<td>").html(data.regDate));		
 		var html = "";
 		if ("${user.id}" == data.id) {
 			html = '<a href="#1" onclick="setModCommentForm(' + data.commentNo + ', \'' + data.content + '\')">수정</a>'
@@ -143,8 +236,7 @@
 		f.content.value = content;
 		
 		$("#crForm").hide();
-		$("#cmForm").show();
-		
+		$("#cmForm").show();		
 	}
 	
 	function commentMod() {
@@ -178,6 +270,19 @@
 		})
 		.done(commentList);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 </script>
