@@ -24,15 +24,17 @@ public interface BoardService {
 	//	테마리스트 조회
 	public List<ThemeVO> selectTheme(String genderNo) throws Exception;
 	
-	//	테마별 리스트 조회
-	public List<BoardVO> selectThemeBoard(String themeNo) throws Exception;
-	
-	//	테마별 리스트 파일 조회
-	public List<BoardFileVO> selectThemeBoardFile(String themeNo) throws Exception;
-
-
+	//	테마별 리스트 조회 (파일 포함)
+	public Map<String,Object> selectThemeBoard(String themeNo, String id) throws Exception;
 
 	//	테마별 리스트 추천 입력
-//	public void registBoardRecom(BoardRecomVO boardRecom) throws Exception;
+	public void registBoardRecom(BoardRecomVO boardRecom) throws Exception;
+	
+	//	테마별 리스트 아이디별 추천 확인
+	public int selectRecomCount(BoardRecomVO boardRecom) throws Exception;
+
+	public void deleteBoardRecom(BoardRecomVO boardRecom);
+	
+	
 	
 }

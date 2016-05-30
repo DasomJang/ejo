@@ -1,5 +1,6 @@
 package ejo.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,26 +71,30 @@ public class BoardController {
 	
 	//	테마별 리스트 조회
 	@RequestMapping("/list.do")
-	public void themeListBoard(String themeNo, Model model) throws Exception{
-		List<BoardVO> thListBoard = boardService.selectThemeBoard(themeNo);
-		List<BoardFileVO> thListBoardFile = boardService.selectThemeBoardFile(themeNo);
-		model.addAttribute("thListBoard",thListBoard);
-		model.addAttribute("thListBoardFile",thListBoardFile);
-	}
+	public void themeListBoard(HttpSession session,String themeNo, Model model) throws Exception{
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		String id = user.getId();
+		Map<String, Object> result = boardService.selectThemeBoard(themeNo, id);
+		model.addAttribute("thListBoard",result.get("thListBoard"));
+		model.addAttribute("thListBoardFile",result.get("thListBoardFile"));
+		
+	} 
 	
-	
-	
-	
-	/*
 	@RequestMapping("/registRecom.json")
 	@ResponseBody
-	public String registBoardRecom(HttpSession session, BoardRecomVO boardRecom) throws Exception{
+	public int registBoardRecom(HttpSession session, BoardRecomVO boardRecom) throws Exception{
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		boardRecom.setId(user.getId());
-		boardService.registBoardRecom(boardRecom);
-		return "success";
-	}
-	*/
-
+		boardService.registBoardRecom(boardRecom);			
+		return 1;
+	}	
 	
+	@RequestMapping("/deleteRecom.json")
+	@ResponseBody
+	public int deleteBoardRecom(HttpSession session, BoardRecomVO boardRecom) throws Exception{
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		boardRecom.setId(user.getId());
+		boardService.deleteBoardRecom(boardRecom);			
+		return 0;
+	}	
 }

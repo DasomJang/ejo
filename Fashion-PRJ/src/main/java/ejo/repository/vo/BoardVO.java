@@ -12,7 +12,15 @@ public class BoardVO {
 	private int recomCnt;
 	private int commentCnt;
 	private Date regDate;
+	private int idRecomCheck;
 	
+	
+	public int getIdRecomCheck() {
+		return idRecomCheck;
+	}
+	public void setIdRecomCheck(int idRecomCheck) {
+		this.idRecomCheck = idRecomCheck;
+	}
 	public int getBoardNo() {
 		return boardNo;
 	}
