@@ -17,7 +17,7 @@ public class LoginController {
 	@RequestMapping("/login.do")
 	public String login(HttpSession session, MemberVO member) throws Exception {
 		member.setId("a");
-		session.setAttribute("user", member);
+		session.setAttribute("user", member);		
 		return "redirect:/main/main.do";
 	}
 	

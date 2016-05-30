@@ -51,6 +51,68 @@
     	 where comment_no = #{commentNo}
     </delete>
     
+    <!-- 테마 리스트 조회 -->
+    
+    <!-- 
+    <resultMap id = "themeMap" type = "theme">
+    	<result column="theme_code" property="themeCode"/>
+    	<result column="theme_name" property="themeName"/>
+    	<result column="file_path" property="filePath"/>
+    	<result column="ori_file_name" property="oriFileName"/>
+    	<result column="real_file_name" property="realFileName"/>
+    </resultMap>
+    -->
+    
+     
+    <select id = "selectTheme" parameterType= "String" resultType = "theme">
+    	select theme_code as themeCode , theme_name as themeName, file_path as filePath, ori_file_name as oriFileName , real_file_name as realFileName
+    	  from t2_theme
+    	 where theme_code like CONCAT(#{genderNo},'%')
+    	 order by theme_code
+    </select>
+    
+    <!-- 테마별 리스트 조회 -->
+    
+    <select id = "selectThemeBoard" parameterType = "String" resultType="board">
+    	select board_no as boardNo, theme_code as themeCode, recom_cnt as recomCnt, comment_cnt as commentCnt  
+		  from t2_board
+		 where theme_code = #{themeNo}
+		 order by board_no desc
+    </select>
+    
+    <!-- 테마별 리스트 파일 조회 -->
+    
+    <select id = "selectThemeBoardFile" parameterType="String" resultType="boardFile">
+		select tbf.file_no as fileNo, tbf.board_no as boardNo, tbf.file_path as filePath, tbf.ori_file_name as oriFileName, tbf.real_file_name as realFileName
+		 from t2_board as tb , t2_board_file as tbf
+		where tb.board_no = tbf.board_no and tb.theme_code = #{themeNo}
+		order by tb.board_no desc
+    </select>
+    
+    <!-- 테마별 리스트 추천 입력 -->
+    <select id = "insertBoardRecom" parameterType="boardRecom">
+	    insert into t2_board_recom (no, id) 
+	    values ( #{no}, #{id} )    	
+    </select>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     <!-- 상세: 점수 갯수 조회 -->
     <select id="selectBoardScoreCnt" parameterType="int" resultType="int">

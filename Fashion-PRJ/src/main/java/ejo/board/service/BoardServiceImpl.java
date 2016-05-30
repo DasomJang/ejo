@@ -11,13 +11,43 @@ import ejo.repository.mapper.BoardMapperImpl;
 import ejo.repository.vo.BoardCommentVO;
 import ejo.repository.vo.BoardFileVO;
 import ejo.repository.vo.BoardScoreVO;
+import ejo.repository.vo.BoardRecomVO;
 import ejo.repository.vo.BoardVO;
+import ejo.repository.vo.ThemeVO;
+
 
 @Service
 public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
 	private BoardMapperImpl dao;
+	
+	////////////////////////// 리스트   //////////////////////////
+	
+	//	테마리스트
+	@Override
+	public List<ThemeVO> selectTheme(String genderNo) throws Exception {
+		return dao.selectTheme(genderNo);
+	}
+
+	//	테마별 리스트 조회
+	@Override
+	public List<BoardVO> selectThemeBoard(String themeNo) throws Exception {
+		return dao.selectThemeBoard(themeNo);
+	}
+	
+	//	테마별 리스트 파일 조회
+	@Override
+	public List<BoardFileVO> selectThemeBoardFile(String themeNo) throws Exception {
+		return dao.selectThemeBoardFile(themeNo);
+	}
+ 
+//	@Override
+//	public void registBoardRecom(BoardRecomVO boardRecom) throws Exception {
+//		dao.registBoardRecom(boardRecom);
+//	}
+	
+	////////////////////////// 상세   //////////////////////////
 
 	@Override
 	public Map<String, Object> detailBoard(int boardNo) throws Exception {
@@ -29,7 +59,9 @@ public class BoardServiceImpl implements BoardService {
 		result.put("board", board);
 		return result;
 	}
-
+	
+	////////////////////////// 상세 댓글   //////////////////////////
+	
 	@Override
 	public List<BoardCommentVO> selectComment(int boardNo) throws Exception {
 		return dao.selectBoardComment(boardNo);
@@ -55,7 +87,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	
-	//////////////////////////평점   //////////////////////////
+	////////////////////////// 상세 평점   //////////////////////////
 	
 	@Override
 	public Map<String, Integer> selectScoreCnt(int boardNo) throws Exception {
