@@ -1,13 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-
-    <div class="brand">빠리모</div>
-    <div class="address-bar">로그인 하는 부분~
-		<div class="subLnb">
-			<c:choose>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script>
+	$(function() {
+		if ("${msg}") {
+			alert("${msg}");
+		}
+	})
+</script>
+		<div class="brand">빠리모</div>
+			<div class="address-bar" >
+				<div class="subLnb"	style="text-align:center">
+				<c:choose>
 				<c:when test="${empty user}">
-					<a href="${pageContext.request.contextPath}/login/login.do">로그인</a>
+					<form action="${pageContext.request.contextPath}/login/login.do" method="post">
+						<div class="loginDiv" >
+							<table>
+								<tr>
+									<th>아이디</th>
+									<td><input type="text" name="id" /></td>
+									<th>패스워드</th>
+									<td><input type="password" name="pass" /></td>
+								</tr>
+
+							</table>
+						</div>
+					<%-- <a href="${pageContext.request.contextPath}/login/login.do">로그인</a> --%>
+						<input type="submit" value="로그인" />
+					</form>
 				</c:when>
 				<c:otherwise>
 					${user.name}님 접속중...
@@ -17,7 +38,7 @@
 		</div>
 	</div>
 
-    <!-- Navigation -->
+<!-- Navigation -->
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
