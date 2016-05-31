@@ -27,7 +27,7 @@ public class LoginController {
 			return "redirect:/main/main.do";
 		}	
 		else{
-			attr.addFlashAttribute("msg", "아이디와 패스워드를 확인하세요!");
+			attr.addFlashAttribute("msg", "아이디와 패스워드를 확인하세요!"); 
 			return "redirect:/main/main.do";
 		}
 	
