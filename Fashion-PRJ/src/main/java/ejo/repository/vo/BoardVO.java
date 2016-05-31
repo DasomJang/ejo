@@ -14,6 +14,7 @@ public class BoardVO {
 	private int commentCnt;
 	private Date regDate;
 	private List<ItemFileVO> itemList;
+	private int idRecomCheck;	
 	
 	public int getBoardNo() {
 		return boardNo;
@@ -74,5 +75,11 @@ public class BoardVO {
 	}
 	public void setItemList(List<ItemFileVO> itemList) {
 		this.itemList = itemList;
+	}
+	public int getIdRecomCheck() {
+		return idRecomCheck;
+	}
+	public void setIdRecomCheck(int idRecomCheck) {
+		this.idRecomCheck = idRecomCheck;
 	}
 }

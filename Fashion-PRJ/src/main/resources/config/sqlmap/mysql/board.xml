@@ -83,10 +83,13 @@
     
     <!-- 테마별 리스트 조회 -->
     
-    <select id = "selectThemeBoard" parameterType = "String" resultType="board">
-    	select board_no as boardNo, theme_code as themeCode, recom_cnt as recomCnt, comment_cnt as commentCnt  
-		  from t2_board
-		 where theme_code = #{themeNo}
+    <select id = "selectThemeBoard" parameterType = "map" resultType="board">
+		select board_no as boardNo, theme_code as themeCode, 
+			   (select count(*) from t2_recom_theme as rt where tb.board_no = rt.board_no) as recomCnt, 
+			   (select count(*) from t2_board_comment as bc where tb.board_no = bc.board_no) as commentCnt, 
+			   (select count(*) from t2_recom_theme as rt where id = #{id} and tb.board_no = rt.board_no) as idRecomCheck
+		  from t2_board as tb
+		 where theme_code = #{themeNo}  
 		 order by board_no desc
     </select>
     
@@ -100,15 +103,31 @@
     </select>
     
     <!-- 테마별 리스트 추천 입력 -->
-    <select id = "insertBoardRecom" parameterType="boardRecom">
-	    insert into t2_board_recom (no, id) 
-	    values ( #{no}, #{id} )    	
+    <insert id = "insertBoardRecom" parameterType="boardRecom">
+	    insert into t2_recom_theme (board_no, id) 
+	    values ( #{boardNo}, #{id} )    	
+    </insert>
+    
+    
+    <!-- 테마별 리스트 아이디별 추천 확인 -->
+    <select id="selectRecomCount" resultType="int" parameterType="boardRecom">
+		select count(*) as rCnt
+		  from t2_recom_theme
+		 WHERE id = #{id}
+		   AND board_no = #{boardNo}      
     </select>
     
+    <!-- 테마별 리스트 추천 삭제 -->
+    <insert id = "deleteBoardRecom" parameterType="boardRecom">
+	    delete from t2_recom_theme  
+	    where board_no = #{boardNo} 
+	      and id = #{id}    	
+    </insert>
     
     
     
     
+     
     
     
     

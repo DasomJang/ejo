@@ -5,6 +5,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!-- ºÎÆ®½ºÆ®·¦ »ðÀÔ -->
+<link href="${pageContext.request.contextPath }/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Àû¿ëÇÒ CSS »ðÀÔ -->
+<link href="${pageContext.request.contextPath }/css/fashionEjo.css"
+	rel="stylesheet">
+	
+<style>
+	.themeImg{
+		float : left;
+		list-style-type: none;
+		margin : 30px;
+	}
+	.themeImg : nth-child(3){
+	
+		clear : both;
+	}
+	.thName{
+		margin: 10px;
+		text-align: center;
+	}
+	
+	.footer{
+		clear : both;
+	}
+</style>	
 </head>
 <body>
 	<div class="container">
@@ -15,7 +42,9 @@
 			<div id="themeList">
 				<ul>
 					<c:forEach var="theme" items="${thList}">
-						<li><a href = "${pageContext.request.contextPath}/board/list.do?themeNo=${theme.themeCode}"><img width="250" height="250" src = "${pageContext.request.contextPath}/file/down.do?filePath=${theme.filePath}&realFileName=${theme.realFileName}&draw=Y"><br />${theme.themeName}</a></li>
+						<div class = "themeImg">
+							<li><a href = "${pageContext.request.contextPath}/board/list.do?themeNo=${theme.themeCode}"><img class ="img-circle" width="300" height="300" src = "${pageContext.request.contextPath}/file/down.do?filePath=${theme.filePath}&realFileName=${theme.realFileName}&draw=Y"><div class = "thName">${theme.themeName}</div></a></li>
+						</div>
 					</c:forEach>
 				</ul>
 			</div>

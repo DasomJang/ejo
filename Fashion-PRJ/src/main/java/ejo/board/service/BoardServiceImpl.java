@@ -33,20 +33,38 @@ public class BoardServiceImpl implements BoardService {
 
 	//	테마별 리스트 조회
 	@Override
-	public List<BoardVO> selectThemeBoard(String themeNo) throws Exception {
-		return dao.selectThemeBoard(themeNo);
+	public Map<String,Object> selectThemeBoard(String themeNo, String id) throws Exception {
+		
+		List<BoardVO> thListBoard = dao.selectThemeBoard(themeNo, id);
+		List<BoardFileVO> thListBoardFile = dao.selectThemeBoardFile(themeNo);
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("thListBoard", thListBoard);
+		result.put("thListBoardFile", thListBoardFile);
+		
+		return result;
 	}
 	
-	//	테마별 리스트 파일 조회
+	//	테마별 리스트 아이디별 추천 확인
 	@Override
-	public List<BoardFileVO> selectThemeBoardFile(String themeNo) throws Exception {
-		return dao.selectThemeBoardFile(themeNo);
+	public int selectRecomCount(BoardRecomVO boardRecom) throws Exception {
+		return dao.selectRecomCount(boardRecom);
 	}
- 
-//	@Override
-//	public void registBoardRecom(BoardRecomVO boardRecom) throws Exception {
-//		dao.registBoardRecom(boardRecom);
-//	}
+
+	//	테마별 리스트 추천 입력
+
+	@Override
+	public void registBoardRecom(BoardRecomVO boardRecom) throws Exception {
+		dao.registBoardRecom(boardRecom);
+	}
+	
+	//	테마별 리스트 추천 삭제
+	@Override
+	public void deleteBoardRecom(BoardRecomVO boardRecom) {
+		dao.deleteBoardRecom(boardRecom);
+		
+	}
+
 	
 	////////////////////////// 상세   //////////////////////////
 
@@ -89,6 +107,7 @@ public class BoardServiceImpl implements BoardService {
 		return dao.selectBoardComment(comment.getBoardNo());
 	}
 
+
 	
 	////////////////////////// 상세 평점   //////////////////////////
 	
@@ -125,6 +144,4 @@ public class BoardServiceImpl implements BoardService {
 			return -1;
 		}		
 	}
-
-
 }

@@ -1,6 +1,8 @@
 package ejo.repository.mapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +32,12 @@ public class BoardMapperImpl implements BoardMapper {
 
 	//	테마별 리스트
 	@Override
-	public List<BoardVO> selectThemeBoard(String themeNo) throws Exception {
-		return session.selectList(BOARD_MAPPER_NAMESPACE + ".selectThemeBoard", themeNo);
+	public List<BoardVO> selectThemeBoard(String themeNo, String id) throws Exception {
+		
+		Map<String, String> themeId = new HashMap<>();
+		themeId.put("themeNo", themeNo);
+		themeId.put("id", id);
+		return session.selectList(BOARD_MAPPER_NAMESPACE + ".selectThemeBoard", themeId);
 	}
 	//	테마별 리스트 별 파일 목록 리스트
 	@Override
@@ -40,13 +46,23 @@ public class BoardMapperImpl implements BoardMapper {
 	}
 
 	//	테마별 리스트 추천 입력
-/*	@Override
+	@Override
 	public void registBoardRecom(BoardRecomVO boardRecom) throws Exception {
 		session.insert(BOARD_MAPPER_NAMESPACE + ".insertBoardRecom",boardRecom);
-	}*/
+	}
 	
+	//	테마별 리스트 아이디별 추천 확인
+	@Override
+	public int selectRecomCount(BoardRecomVO boardRecom) throws Exception {
+		return session.selectOne(BOARD_MAPPER_NAMESPACE + ".selectRecomCount",boardRecom);
+	}
 	
-	
+	//	테마별 리스트 추천 삭제
+	public void deleteBoardRecom(BoardRecomVO boardRecom) {
+		session.delete(BOARD_MAPPER_NAMESPACE + ".deleteBoardRecom", boardRecom);		
+		
+	}
+
 	//////////////////////////상세   //////////////////////////		
 	/////////////상세 메인 사진   /////////////	
 	@Override
@@ -80,6 +96,10 @@ public class BoardMapperImpl implements BoardMapper {
 	public void deleteBoardComment(int commentNo) throws Exception {
 		session.delete(BOARD_MAPPER_NAMESPACE + ".deleteBoardComment", commentNo);		
 	}
+
+
+	
+	
 	
 	/////////////상세 평점   /////////////	
 	@Override
