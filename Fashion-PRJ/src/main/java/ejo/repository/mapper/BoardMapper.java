@@ -6,6 +6,7 @@ import ejo.repository.vo.BoardFileVO;
 import ejo.repository.vo.BoardScoreVO;
 import ejo.repository.vo.BoardRecomVO;
 import ejo.repository.vo.BoardVO;
+import ejo.repository.vo.ItemFileVO;
 import ejo.repository.vo.ThemeVO;
 import ejo.repository.vo.BoardCommentVO;
 
@@ -44,5 +45,8 @@ public interface BoardMapper {
 	public int selectBoardScoreGradeCnt(BoardScoreVO score) throws Exception;
 	public int selectOneBoardScore(BoardScoreVO score) throws Exception;
 	public void insertBoardScore(BoardScoreVO score) throws Exception;
+
+	///////////// 상세 아이템 사진   /////////////
+	public List<ItemFileVO> selectBoardItem(int boardNo) throws Exception;
 
 }

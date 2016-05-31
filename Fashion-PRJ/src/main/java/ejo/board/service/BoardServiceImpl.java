@@ -13,6 +13,7 @@ import ejo.repository.vo.BoardFileVO;
 import ejo.repository.vo.BoardScoreVO;
 import ejo.repository.vo.BoardRecomVO;
 import ejo.repository.vo.BoardVO;
+import ejo.repository.vo.ItemFileVO;
 import ejo.repository.vo.ThemeVO;
 
 
@@ -53,6 +54,8 @@ public class BoardServiceImpl implements BoardService {
 	public Map<String, Object> detailBoard(int boardNo) throws Exception {
 		BoardFileVO file = dao.selectBoardFile(boardNo);
 		BoardVO board = dao.selectOneBoard(boardNo);
+		List<ItemFileVO> itemList = dao.selectBoardItem(boardNo);
+		board.setItemList(itemList);
 		
 		Map<String, Object> result = new HashMap<>();
 		result.put("file", file);

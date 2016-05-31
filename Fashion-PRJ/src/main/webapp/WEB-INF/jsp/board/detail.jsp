@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/scoreBar.css">
-<script src=https://code.jquery.com/jquery-2.2.4.min.js></script>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/normalize.css">
+<link rel='stylesheet prefetch' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/itemSlide.css">
 </head>
 <body>
-<div class="container">
+<div class="mainContainer">
 	<div class="header">
 		<%@ include file="/WEB-INF/jsp/include/topMenu.jsp" %>
 	</div>	
@@ -19,6 +24,7 @@
 			<img width="400" height="500"
 			src="${pageContext.request.contextPath}/file/down.do?filePath=${file.filePath}&realFileName=${file.realFileName}&draw=Y" />
 		</div>
+		
 		<!-- 상세 설명 -->
 		<div>
 			<h2>Theme</h2>
@@ -27,7 +33,8 @@
 			<h4>${board.contentNote}</h4>
 			<h2>Tip</h2>
 			<h4>${board.contentTip}</h4>			
-		</div>		
+		</div>	
+			
 		<!-- 평점 -->
 		<div>
 			<form id="srForm" name="srForm" action="registScore.json">
@@ -71,6 +78,7 @@
   		</div>	
 		<br />
 		<br />	
+		
 		<!-- 댓글 -->
 		<!-- 댓글 등록 폼 -->
 		<h3>후기</h3>
@@ -94,18 +102,40 @@
 					<td><button>등록</button></td>
 				</tr>
 			</table>	
-		</form>
-		
-		
+		</form>		
  		<!-- 댓글 목록 -->
  		<div id="commentList"></div>
 		
-		
+		<!-- 상세 아이템 -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="carousel slide multi-item-carousel" id="theCarousel">
+						<div class="carousel-inner">
+							<div class="item active">
+								<div class="col-xs-4"><a href="#1"><img src="${pageContext.request.contextPath}/file/down.do?filePath=${board.itemList[0].filePath}&realFileName=${board.itemList[0].realFileName}&draw=Y" class="img-responsive"></a></div>
+							</div>
+							<c:forEach begin="1" var="i" end="${fn:length(board.itemList)-1}" >
+								<div class="item">
+									<div class="col-xs-4"><a href="#1"><img src="${pageContext.request.contextPath}/file/down.do?filePath=${board.itemList[i].filePath}&realFileName=${board.itemList[i].realFileName}&draw=Y" class="img-responsive"></a></div>
+								</div>							
+							</c:forEach>
+						</div>
+						<a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+						<a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>		
 	</div>
 	<div class="footer">
 		<%@ include file="/WEB-INF/jsp/include/bottom.jsp" %>
 	</div>
 </div>
+
+<script src=https://code.jquery.com/jquery-2.2.4.min.js></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/itemSlide.js"></script>
 <script>
 	$(function() {
 		// 댓글
@@ -126,6 +156,8 @@
 			scoreReg();
 			e.preventDefault();
 		});
+		
+		
 	});
 	
 	//////////////////////////  평점   //////////////////////////
@@ -202,9 +234,12 @@
 	}
 	
 	function makeTr(data) {
+		var rDate = new Date(data.regDate);
+		var rTime = rDate.getFullYear() + "-" + rDate.getMonth()   + "-" + rDate.getDate() + " "
+        		  + rDate.getHours()    + ":" + rDate.getMinutes() + ":" + rDate.getSeconds();
 		var tr = $("<tr>").append($("<td>").html(data.id))
 						  .append($("<td id='" + data.commentNo + "'>").html(data.content))
-						  .append($("<td>").html(data.regDate));		
+						  .append($("<td>").html(rTime));
 		var html = "";
 		if ("${user.id}" == data.id) {
 			html = '<a href="#1" onclick="setModCommentForm(' + data.commentNo + ', \'' + data.content + '\')">수정</a>'

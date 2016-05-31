@@ -11,6 +11,7 @@ import ejo.repository.vo.BoardFileVO;
 import ejo.repository.vo.BoardScoreVO;
 import ejo.repository.vo.BoardRecomVO;
 import ejo.repository.vo.BoardVO;
+import ejo.repository.vo.ItemFileVO;
 import ejo.repository.vo.ThemeVO;
 
 @Repository
@@ -96,6 +97,12 @@ public class BoardMapperImpl implements BoardMapper {
 	@Override
 	public void insertBoardScore(BoardScoreVO score) throws Exception {
 		session.insert(BOARD_MAPPER_NAMESPACE + ".insertBoardScore", score);		
+	}
+
+	/////////////상세 아이템   /////////////	
+	@Override
+	public List<ItemFileVO> selectBoardItem(int boardNo) throws Exception {
+		return session.selectList(BOARD_MAPPER_NAMESPACE + ".selectBoardItem", boardNo);
 	}
 
 }
