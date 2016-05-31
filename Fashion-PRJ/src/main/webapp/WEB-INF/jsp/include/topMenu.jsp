@@ -69,7 +69,7 @@
                         <a href="${pageContext.request.contextPath}/dailyCoordi/calendar.do">오늘의 코디</a>
                     </li>
                     <li>
-                        <a href="#">사용자 코디</a>
+                        <a href="${pageContext.request.contextPath}/boardMember/list.do">사용자 코디</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/item/makeCoordi.do">코디 만들기</a>

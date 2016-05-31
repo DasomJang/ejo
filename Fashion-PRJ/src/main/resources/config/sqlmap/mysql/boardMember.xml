@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ejo.repository.mapper.BoardMemberMapper">
+    
+
+    <!-- 게시물 등록 -->
+
+    <insert id="insertBoard2" parameterType="boardMember">
+        <selectKey keyProperty="memberBoardNo" resultType="int">
+            SELECT LAST_INSERT_ID() 
+        </selectKey>
+        insert into t2_board_member(
+		    member_board_no, id, title
+		) values (
+		    #{memberBoardNo}, #{id}, #{title}
+		)
+    </insert>
+    
+  
+ 
+      <!-- 게시물 목록 -->
+    <select id="selectBoard" parameterType="String" resultType="boardMember">
+		select member_board_no as memberBoardNo, title, id, reg_date as regDate,
+		 		(select count(*) 
+		 			from t2_recom_member rm 
+		 			where tbm.member_board_no = rm.member_board_no) as recomCnt,
+		  		(select count(*) 
+		  			from t2_recom_member rm 
+		  			where id = #{id} 
+		  			and tbm.member_board_no = rm.member_board_no) as idRecomCheck                            
+		  from t2_Board_Member tbm                                    
+		 order by member_board_no desc                                    
+    </select>  
+    	
+   <!-- 게시물 수 -->
+    <select id="selectBoardCount" resultType="int">
+		select count(*)
+		  from t2_board_member
+		          
+    </select> 
+    
+    
+      <!-- 게시물 파일 조회 -->    
+    <select id="selectBoardFile" parameterType="int" resultType="boardMemberFile">
+		select file_no as fileNo, 
+		       member_board_no as memberBoardNo, 
+		       file_path as filePath,
+		       ori_file_name as oriFileName, 
+		       real_file_name as realFileName
+		 
+		  from t2_board_member_file
+		 where member_board_no = #{memberBoardNo}    
+    </select>    
+    
+    
+    <!-- 파일 추가 -->    
+    <insert id="insertBoardFile" parameterType="boardMemberFile">
+        insert into t2_board_member_file (        
+		     member_board_no, file_path, ori_file_name, real_file_name
+		) values (
+		    #{memberBoardNo}, #{filePath}, #{oriFileName}, #{realFileName} 
+		)
+    </insert>
+      <!-- 
+    <insert id="insertBoardFile" parameterType="boardMemberFile">
+       <selectKey keyProperty="commentNo" resultType="int">
+           SELECT LAST_INSERT_ID()
+       </selectKey>
+       insert into t2_board_comment(comment_no, board_no, id, content)
+       values (#{commentNo}, #{boardNo}, #{id}, #{content})
+    </insert>
+     -->
+    
+    <!-- 파일 삭제 -->    
+    <delete id="deleteFileByBoardNo" parameterType="int">
+        delete from t2_board_member_file
+		 where member_board_no = #{memberBoardNo} 
+    </delete>
+    
+   <!-- 게시물 삭제 -->
+    <delete id="deleteBoard" parameterType="int">
+        delete 
+          from t2_board_member
+		 where member_board_no = #{memberBoardNo}
+    </delete> 
+    
+   <!-- 추천 입력 -->
+    <insert id = "insertBoardRecom" parameterType="boardMemberRecom">
+	    insert into t2_recom_member (member_board_no, id) 
+	    values ( #{memberBoardNo}, #{id} )    	
+    </insert>  
+    
+   <!--  추천 삭제 -->
+    <insert id = "deleteBoardRecom" parameterType="boardMemberRecom">
+	    delete from t2_recom_member  
+	    where member_board_no = #{memberBoardNo} 
+	      and id = #{id}    	
+    </insert> 
+    
+     <!-- 아이디별 추천 확인 -->
+    <select id="selectRecomCount" resultType="int" parameterType="boardMemberRecom">
+		select count(*) as rCnt
+		  from t2_recom_member
+		 WHERE id = #{id}
+		   AND member_board_no = #{memberBoardNo}      
+    </select>
+    
+    
+    
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
