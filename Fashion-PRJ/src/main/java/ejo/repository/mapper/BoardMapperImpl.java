@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import ejo.repository.vo.BoardCommentVO;
 import ejo.repository.vo.BoardFileVO;
+import ejo.repository.vo.BoardScoreVO;
 import ejo.repository.vo.BoardRecomVO;
 import ejo.repository.vo.BoardVO;
 import ejo.repository.vo.ThemeVO;
@@ -55,42 +56,66 @@ public class BoardMapperImpl implements BoardMapper {
 		return session.selectOne(BOARD_MAPPER_NAMESPACE + ".selectRecomCount",boardRecom);
 	}
 	
-
-	public BoardFileVO selectBoardFile(int boardNo) throws Exception {
-		return session.selectOne(BOARD_MAPPER_NAMESPACE + ".selectBoardFile", boardNo);
-	}
-	
-	public BoardVO selectOneBoard(int boardNo) throws Exception {
-		return session.selectOne(BOARD_MAPPER_NAMESPACE + ".selectOneBoard", boardNo);
-	}
-
-	public List<BoardCommentVO> selectBoardComment(int boardNo) throws Exception {
-		return session.selectList(BOARD_MAPPER_NAMESPACE + ".selectCommentList", boardNo);
-	}
-
-	public void insertBoardComment(BoardCommentVO comment) throws Exception {		
-		session.insert(BOARD_MAPPER_NAMESPACE + ".insertBoardComment", comment);
-	}
-
-	public BoardCommentVO selectRegComment(int commentNo) throws Exception {
-		return session.selectOne(BOARD_MAPPER_NAMESPACE + ".selectRegComment", commentNo);
-	}
-
-	public void updateBoardComment(BoardCommentVO comment) throws Exception {
-		session.update(BOARD_MAPPER_NAMESPACE + ".updateBoardComment", comment);		
-	}
-
-	public void deleteBoardComment(int commentNo) throws Exception {
-		session.delete(BOARD_MAPPER_NAMESPACE + ".deleteBoardComment", commentNo);		
-	}
-
+	//	테마별 리스트 추천 삭제
 	public void deleteBoardRecom(BoardRecomVO boardRecom) {
 		session.delete(BOARD_MAPPER_NAMESPACE + ".deleteBoardRecom", boardRecom);		
 		
 	}
+
+	//////////////////////////상세   //////////////////////////		
+	/////////////상세 메인 사진   /////////////	
+	@Override
+	public BoardFileVO selectBoardFile(int boardNo) throws Exception {
+		return session.selectOne(BOARD_MAPPER_NAMESPACE + ".selectBoardFile", boardNo);
+	}	
+	/////////////상세 글내용   /////////////	
+	@Override
+	public BoardVO selectOneBoard(int boardNo) throws Exception {
+		return session.selectOne(BOARD_MAPPER_NAMESPACE + ".selectOneBoard", boardNo);
+	}
+
+	/////////////상세 댓글   /////////////	
+	@Override
+	public List<BoardCommentVO> selectBoardComment(int boardNo) throws Exception {
+		return session.selectList(BOARD_MAPPER_NAMESPACE + ".selectCommentList", boardNo);
+	}
+	@Override
+	public void insertBoardComment(BoardCommentVO comment) throws Exception {		
+		session.insert(BOARD_MAPPER_NAMESPACE + ".insertBoardComment", comment);
+	}
+	@Override
+	public BoardCommentVO selectRegComment(int commentNo) throws Exception {
+		return session.selectOne(BOARD_MAPPER_NAMESPACE + ".selectRegComment", commentNo);
+	}
+	@Override
+	public void updateBoardComment(BoardCommentVO comment) throws Exception {
+		session.update(BOARD_MAPPER_NAMESPACE + ".updateBoardComment", comment);		
+	}
+	@Override
+	public void deleteBoardComment(int commentNo) throws Exception {
+		session.delete(BOARD_MAPPER_NAMESPACE + ".deleteBoardComment", commentNo);		
+	}
+
+
 	
 	
 	
-	
+	/////////////상세 평점   /////////////	
+	@Override
+	public int selectBoardScoreCnt(int boardNo) throws Exception {
+		return session.selectOne(BOARD_MAPPER_NAMESPACE + ".selectBoardScoreCnt", boardNo);		
+	}
+	@Override
+	public int selectBoardScoreGradeCnt(BoardScoreVO score) throws Exception {
+		return session.selectOne(BOARD_MAPPER_NAMESPACE + ".selectBoardScoreGradeCnt", score);
+	}	
+	@Override
+	public int selectOneBoardScore(BoardScoreVO score) throws Exception {
+		return session.selectOne(BOARD_MAPPER_NAMESPACE + ".selectOneBoardScore", score);		
+	}
+	@Override
+	public void insertBoardScore(BoardScoreVO score) throws Exception {
+		session.insert(BOARD_MAPPER_NAMESPACE + ".insertBoardScore", score);		
+	}
 
 }
