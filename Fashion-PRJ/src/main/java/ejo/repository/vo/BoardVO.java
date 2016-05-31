@@ -12,7 +12,21 @@ public class BoardVO {
 	private int recomCnt;
 	private int commentCnt;
 	private Date regDate;
+	private DailyCoordiVO dailyCoordi;
+	private ThemeVO theme;
 	
+	public DailyCoordiVO getDailyCoordi() {
+		return dailyCoordi;
+	}
+	public void setDailCoordiVO(DailyCoordiVO dailyCoordi) {
+		this.dailyCoordi = dailyCoordi;
+	}
+	public ThemeVO getTheme() {
+		return theme;
+	}
+	public void setThemeVO(ThemeVO theme) {
+		this.theme = theme;
+	}
 	public int getBoardNo() {
 		return boardNo;
 	}

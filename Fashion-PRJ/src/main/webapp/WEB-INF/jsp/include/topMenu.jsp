@@ -42,7 +42,7 @@
 						</ul>
                     </li>
                     <li>
-                        <a href="#">오늘의 코디</a>
+                        <a href="${pageContext.request.contextPath}/dailyCoordi/calendar.do">오늘의 코디</a>
                     </li>
                     <li>
                         <a href="#">사용자 코디</a>
