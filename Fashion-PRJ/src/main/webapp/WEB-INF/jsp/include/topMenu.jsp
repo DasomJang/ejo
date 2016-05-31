@@ -1,23 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="${pageContext.request.contextPath}/css/module.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
-    <div class="brand">빠리모</div>
-    <div class="address-bar">로그인 하는 부분~
-		<div class="subLnb">
-			<c:choose>
+<script>
+	$(function() {
+		$("#join").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/join/joinForm.do";
+		});	
+	})
+</script>
+		<div class="brand">빠리모</div>
+			<div class="address-bar" style=text-align:center>
+				<div class="subLnb"	>
+				<c:choose>
 				<c:when test="${empty user}">
-					<a href="${pageContext.request.contextPath}/login/login.do">로그인</a>
+					<form action="${pageContext.request.contextPath}/login/login.do" method="post" > 
+						<div class="loginDiv">
+							<table align='center'>
+								<tr>
+									<th>아이디</th>
+									<td><input type="text" name="id" /></td>
+									<th>패스워드</th>
+									<td><input type="password" name="pass" /></td>
+								</tr>
+
+							</table>
+						</div>
+					<%-- <a href="${pageContext.request.contextPath}/login/login.do">로그인</a> --%>
+					<input type="submit" id="login" name="login" onsubmit="return loginClick();" value="로그인" />
+					<input type="button" id="join" name="join"  value="회원가입" />			
+					</form>
 				</c:when>
 				<c:otherwise>
 					${user.name}님 접속중...
-					<a href="${pageContext.request.contextPath}/login/logout.do">로그아웃</a>
+					<input type="button"  value="로그아웃" onclick="location.href='${pageContext.request.contextPath}/login/logout.do'" />
 				</c:otherwise>
 			</c:choose>
 		</div>
 	</div>
 
-    <!-- Navigation -->
+<!-- Navigation -->
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->

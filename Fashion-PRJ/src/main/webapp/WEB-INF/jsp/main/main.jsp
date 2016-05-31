@@ -30,6 +30,12 @@
 
 
 <title>Mini 3 - Fahshion-PRJ</title>
+<script>
+if("${msg}") { 
+	alert("${msg}"); 
+// 	location.reload();
+}	
+</script>
 </head>
 <body>
 	<div class="header">

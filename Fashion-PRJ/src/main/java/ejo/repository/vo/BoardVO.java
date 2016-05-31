@@ -1,6 +1,7 @@
 package ejo.repository.vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class BoardVO {
 	private int boardNo;
@@ -12,8 +13,13 @@ public class BoardVO {
 	private int recomCnt;
 	private int commentCnt;
 	private Date regDate;
+
 	private DailyCoordiVO dailyCoordi;
 	private ThemeVO theme;
+
+	private List<ItemFileVO> itemList;
+	private int idRecomCheck;	
+
 	
 	public DailyCoordiVO getDailyCoordi() {
 		return dailyCoordi;
@@ -80,5 +86,17 @@ public class BoardVO {
 	}
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+	public List<ItemFileVO> getItemList() {
+		return itemList;
+	}
+	public void setItemList(List<ItemFileVO> itemList) {
+		this.itemList = itemList;
+	}
+	public int getIdRecomCheck() {
+		return idRecomCheck;
+	}
+	public void setIdRecomCheck(int idRecomCheck) {
+		this.idRecomCheck = idRecomCheck;
 	}
 }
